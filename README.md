@@ -2,7 +2,7 @@
 
 ## Motivation
 
-Why not use the standard Dockerhub Tomcat image [](https://hub.docker.com/_/tomcat/)?
+Why not use the standard Dockerhub Tomcat image [https://hub.docker.com/_/tomcat/]()?
 
 It's a perfectly fine image, but has two issues:
 
