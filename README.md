@@ -6,7 +6,7 @@ Why not use the standard Dockerhub Tomcat image [https://hub.docker.com/_/tomcat
 
 It's a perfectly fine image, but has two issues:
 
-Firtly it's fairly big in size - the 8.0-jre8 tag has a size of 558MB, whilst it's based on a debian image that start's life at around 100MB. That's quite a big increase.
+Firstly it's fairly big in size - the 8.0-jre8 tag has a size of 558MB, whilst it's based on a debian image that start's life at around 100MB. That's quite a big increase.
 
 Secondly it runs as the root user which is a security risk. Better would be to run as a dedicated non-privileged user, but better still to allow to run as an arbitrarily assigned user ID as is preferred by OpenShift. This image supports both approaches.
 
