@@ -32,5 +32,6 @@ The core Dockerfile have names like Dockerfile-tomcat80-jre8. An alternative Doc
 ## Source code and image locations
 
 Source code can be found on GitHub: https://github.com/InformaticsMatters/docker-tomcat
+
 Docker images are automatically built on Docker Hub: https://hub.docker.com/r/informaticsmatters/tomcat/
 
