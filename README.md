@@ -29,7 +29,8 @@ The trick to running as an arbitrarily assigned user ID is that this user belong
 
 The core Dockerfile have names like Dockerfile-tomcat80-jre8. An alternative Dockerfiles that leaves the default Tomcat apps in place is also present and can be used.
 
-## Docker Hub images
+## Source code and image locations
 
-The core minimal images are automatically built on Docker Hub and can be found [here](https://hub.docker.com/r/informaticsmatters/tomcat/).
+Source code can be found on GitHub: https://github.com/InformaticsMatters/docker-tomcat
+Docker images are automatically built on Docker Hub: https://hub.docker.com/r/informaticsmatters/tomcat/
 
