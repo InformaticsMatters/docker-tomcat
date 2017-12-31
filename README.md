@@ -10,7 +10,7 @@ Firstly it's fairly big in size - the 8.0-jre8 tag has a size of 558MB, whilst i
 
 Secondly it runs as the root user which is a security risk. Better would be to run as a dedicated non-privileged user, but better still to allow to run as an arbitrarily assigned user ID as is preferred by OpenShift. This image supports both approaches.
 
-So this series of images try to be as lightweight as possible and allow to run as an arbitrarily assigned user ID (though a tomcat user with user ID of 1000 is defined as the default user). The result for the 8.0-jre8 tag is an image of size 285MB, approx half that of the DockerHub tomcat image, and not bad as that includes the Java JRE.
+So this series of images try to be as lightweight as possible and allow to run as an arbitrarily assigned user ID (though a tomcat user with user ID of 501 is defined as the default user). The result for the 8.0-jre8 tag is an image of size 285MB, approx half that of the DockerHub tomcat image, and not bad as that includes the Java JRE.
  
 ## Usage
 
@@ -23,11 +23,11 @@ More normally though you would create your own Dockerfile that places the conten
 
 ## Notes
 
-The trick to running as an arbitrarily assigned user ID is that this user belongs to the root group (ID 0) so the permissions under /usr/local/tomcat are set to be readable/writable as appropritate by that group (though still owned by root). This allows the arbitrarily assigned user to access the files as necessary. If you hit permission problems you probably need to do a `chown -R root:0` on the offending files.  
+The trick to running as an arbitrarily assigned user ID is that this user belongs to the root group (ID 0) so the permissions under /usr/local/tomcat are set to be readable/writable as appropritate by that group (though still owned by root). This allows the arbitrarily assigned user to access the files as necessary. If you hit permission problems you probably need to do a `chown -R tomcat:0` on the offending files.
 
 ## Alternative Docker files
 
-The core Dockerfile have names like Dockerfile-tomcat80-jre8. These build a minimal image with no content in the webapps directory. It also does not do any verifications on the tomcat download file which you might not find acceptable. Alternative Dockerfiles that do verifications (but at the cost of extra dependencies and thus increased size) or that leave the default Tomcat apps in place) are also present and can be used.
+The core Dockerfile have names like Dockerfile-tomcat80-jre8. An alternative Dockerfiles that leaves the default Tomcat apps in place is also present and can be used.
 
 ## Docker Hub images
 
