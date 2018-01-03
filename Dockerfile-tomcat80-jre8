@@ -47,5 +47,5 @@ ENV CATALINA_HOME /usr/local/tomcat
 EXPOSE 8080
 USER 501
 
-CMD ["$CATALINA_HOME/bin/catalina.sh", "run"]
+CMD ["/usr/local/tomcat/bin/catalina.sh", "run"]
 
