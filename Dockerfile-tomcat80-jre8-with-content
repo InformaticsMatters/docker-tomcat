@@ -3,12 +3,11 @@ LABEL maintainer="tdudgeon@informaticsmatters.com"
 
 RUN apt-get update -y &&\
  apt-get upgrade -y &&\
- apt-get install -y --no-install-recommends openjdk-8-jre-headless wget gpg libapr1 dirmngr &&\
+ apt-get install -y --no-install-recommends openjdk-8-jre-headless curl gpg libapr1 dirmngr &&\
  apt-get clean
 
 ENV TOMCAT_MAJOR 8
 ENV TOMCAT_VERSION 8.0.48
-ENV TOMCAT_SHA1 d2446c127c9b11f88def11e542af98998071d91d
 ENV ARCHIVE apache-tomcat-$TOMCAT_VERSION.tar.gz
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
@@ -31,10 +30,10 @@ RUN useradd -u 501 -U -G 0 tomcat
 
 WORKDIR /usr/local
 
-RUN wget -q -O tomcat.tar.gz https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/$ARCHIVE &&\
- wget -q -O tomcat.tar.gz.asc https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/$ARCHIVE.asc &&\
+RUN curl -s -o tomcat.tar.gz https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/$ARCHIVE &&\
+ curl -s -o tomcat.tar.gz.asc https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/$ARCHIVE.asc &&\
  gpg --verify tomcat.tar.gz.asc tomcat.tar.gz &&\
- tar xvfz tomcat.tar.gz &&\
+ tar xfz tomcat.tar.gz &&\
  rm tomcat.tar.gz &&\
  mv apache-tomcat-$TOMCAT_VERSION tomcat &&\
  rm tomcat/bin/*.bat &&\
@@ -47,5 +46,5 @@ ENV CATALINA_HOME /usr/local/tomcat
 EXPOSE 8080
 USER 501
 
-CMD ["bin/catalina.sh", "run"]
+CMD ["$CATALINA_HOME/bin/catalina.sh", "run"]
 
