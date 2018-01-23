@@ -40,7 +40,7 @@ RUN curl -s -o tomcat.tar.gz https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_M
  rm -rf tomcat/webapps/* &&\
  chown -R 501:0 tomcat &&\
  chmod -R g+r tomcat &&\
- chmod g+w tomcat/logs tomcat/webapps tomcat/temp tomcat/work tomcat/conf tomcat/bin tomcat/lib
+ chmod g+w tomcat tomcat/logs tomcat/webapps tomcat/temp tomcat/work tomcat/conf tomcat/bin tomcat/lib
 
 WORKDIR /usr/local/tomcat
 ENV CATALINA_HOME /usr/local/tomcat
