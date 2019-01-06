@@ -1,0 +1,33 @@
+FROM debian:buster
+LABEL maintainer="tdudgeon@informaticsmatters.com"
+
+RUN apt-get update -y &&\
+ apt-get upgrade -y &&\
+ apt-get install -y --no-install-recommends openjdk-8-jre-headless curl &&\
+ apt-get clean
+
+ENV TOMCAT_MAJOR 8
+ENV TOMCAT_VERSION 8.5.37
+ENV ARCHIVE apache-tomcat-$TOMCAT_VERSION.tar.gz
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+
+RUN useradd -u 501 -U -G 0 tomcat
+
+WORKDIR /usr/local
+
+RUN curl -s -o tomcat.tar.gz https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/$ARCHIVE &&\
+ tar xfz tomcat.tar.gz &&\
+ rm tomcat.tar.gz &&\
+ mv apache-tomcat-$TOMCAT_VERSION tomcat &&\
+ rm tomcat/bin/*.bat &&\
+ chown -R 501:0 tomcat &&\
+ chmod -R g+r tomcat &&\
+ chmod g+w tomcat tomcat/logs tomcat/webapps tomcat/temp tomcat/work tomcat/conf tomcat/bin tomcat/lib
+
+WORKDIR /usr/local/tomcat
+ENV CATALINA_HOME /usr/local/tomcat
+EXPOSE 8080
+USER 501
+
+CMD ["/usr/local/tomcat/bin/catalina.sh", "run"]
+
