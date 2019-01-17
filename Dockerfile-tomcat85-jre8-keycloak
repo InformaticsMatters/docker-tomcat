@@ -9,11 +9,11 @@ LABEL maintainer="tdudgeon@informaticsmatters.com"
 USER 0
 WORKDIR $CATALINA_HOME
 
-# We use the same version as Red Hat SSO 7.2 used in OpenShift which is 3.4.3 but this can be overriden with a build arg.
-ARG KEYCLOAK_VERSION=3.4.3
+# We use the same version as Red Hat SSO 7.2 used in OpenShift which is 3.4.3 but this can be overridden with a build arg.
+ARG KEYCLOAK_VERSION=3.4.3.Final
 
 RUN mkdir keycloak && cd keycloak && curl -s -o keycloak.tar.gz\
- https://downloads.jboss.org/keycloak/$KEYCLOAK_VERSION.Final/adapters/keycloak-oidc/keycloak-tomcat8-adapter-dist-$KEYCLOAK_VERSION.Final.tar.gz &&\
+ https://downloads.jboss.org/keycloak/$KEYCLOAK_VERSION/adapters/keycloak-oidc/keycloak-tomcat8-adapter-dist-${KEYCLOAK_VERSION}.tar.gz &&\
  tar xfz keycloak.tar.gz &&\
  rm keycloak.tar.gz &&\
  mv *.jar $CATALINA_HOME/lib &&\

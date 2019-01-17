@@ -1,0 +1,30 @@
+<web-app
+        version="3.1"
+        xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+
+<session-config>
+        <session-timeout>15</session-timeout>
+    </session-config>
+	
+  <security-constraint>
+	<web-resource-collection>
+	    <web-resource-name>HelloServlet</web-resource-name>
+	    <url-pattern>/*</url-pattern>
+	</web-resource-collection>
+	<auth-constraint>
+	    <role-name>standard-user</role-name>
+	</auth-constraint>
+  </security-constraint>
+	
+  <login-config>
+	<auth-method>KEYCLOAK</auth-method>
+	<realm-name>examples</realm-name>
+  </login-config>
+
+  <security-role>
+      <role-name>standard-user</role-name>
+  </security-role>
+
+</web-app>

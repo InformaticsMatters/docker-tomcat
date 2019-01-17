@@ -1,1 +1,6 @@
 .idea
+*.iml
+.gradle
+build
+keycloak/keycloak-2.1.0-jars-tomcat8
+Dockerfile-tomcat85-jre8-keycloak-2.10

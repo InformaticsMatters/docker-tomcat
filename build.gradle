@@ -1,0 +1,55 @@
+description = 'Example servlet project'
+
+apply plugin: 'war'
+apply plugin: 'com.bmuschko.docker-remote-api'
+
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+
+def contextName = 'example-servlet'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-docker-plugin:4.2.0'
+    }
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+}
+
+wrapper {
+    gradleVersion = '4.10.3'
+}
+
+task buildDockerFile(type: Dockerfile) {
+
+    destFile = project.file('build/Dockerfile')
+    from "informaticsmatters/tomcat-keycloak:8.5-jre8-2.1.0"
+    label(['maintainer': 'Tim Dudgeon "tdudgeon@informaticsmatters.com"'])
+
+    def warFile = tasks.war.outputs.files.singleFile
+    addFile('libs/' + warFile.name, "/usr/local/tomcat/webapps/${contextName}.war")
+    runCommand("cd /usr/local/tomcat/webapps && unzip -d  ${contextName} ${contextName}.war && rm ${contextName}.war")
+}
+
+/** Build a Docker image.
+ * Run the generated image using the keycloak/docker-compose.yaml file.
+ * You will need to define the KEYCLOAK_SERVER_URL, KEYCLOAK_PUBLIC_KEY and KEYCLOAK_SECRET environment variables.
+ * See keycloak/config/keycloak.json and docker-compose.yaml for how these are handled.
+ */
+task buildDockerImage(type: DockerBuildImage) {
+
+    dependsOn = [ war, buildDockerFile ]
+
+    inputDir = buildDockerFile.destFile.get().asFile.parentFile
+    tags.add("informaticsmatters/${contextName}:latest")
+}
