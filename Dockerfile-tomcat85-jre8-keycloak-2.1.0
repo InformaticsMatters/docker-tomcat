@@ -1,0 +1,15 @@
+# When using images based on this Dockerfile be aware of the possibility of libraries in your war file's WEB-INF/lib
+# dir that clash with those used by keycloak that are put into the $CATALINA_HOME/lib directory.
+# This can cause conflicts as both versions of the jars will be on the CLASSPATH.
+# The solution is usually to remove the jar from your WEB-INF/lib dir and rely on the one from $CATALINA_HOME/lib.
+
+FROM informaticsmatters/tomcat:8.5-jre8
+LABEL maintainer="tdudgeon@informaticsmatters.com"
+
+USER 0
+WORKDIR $CATALINA_HOME
+
+COPY keycloak/keycloak-2.1.0-jars-tomcat8/* $CATALINA_HOME/lib/
+
+USER 501
+
