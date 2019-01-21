@@ -11,7 +11,7 @@ ENV TOMCAT_VERSION 8.5.37
 ENV ARCHIVE apache-tomcat-$TOMCAT_VERSION.tar.gz
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
-RUN useradd -u 501 -U -G 0 tomcat
+RUN useradd -u 501 -U -G 0 -m tomcat
 
 WORKDIR /usr/local
 
