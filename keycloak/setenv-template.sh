@@ -1,0 +1,6 @@
+
+export KEYCLOAK_SERVER_URL="SetMe"
+export KEYCLOAK_PUBLIC_KEY="SetMe"
+export KEYCLOAK_SECRET="SetMe"
+export KEYCLOAK_USER=SetMe
+export KEYCLOAK_PASSWORD=SetMe
