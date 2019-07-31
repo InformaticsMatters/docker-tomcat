@@ -20,7 +20,7 @@
 	
   <login-config>
 	<auth-method>KEYCLOAK</auth-method>
-	<realm-name>examples</realm-name>
+	<realm-name>openrisknet</realm-name>
   </login-config>
 
   <security-role>

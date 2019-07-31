@@ -4,27 +4,27 @@ services:
 
     # Sample SSL tls.key and tls.crt files are provided but you can create new ones with this:
     # openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt
-    keycloak:
-        image: jboss/keycloak:3.4.3.Final
-        expose:
-        - "8443"
-        network_mode: "host"
-        volumes:
-        - ./config/tls.key:/etc/x509/https/tls/key:ro,Z
-        - ./config/tls.crt:/etc/x509/https/tls.crt:ro,Z
-        - ./config/realm-export.json:/tmp/realm-export.json:ro,Z
-        environment:
-            KEYCLOAK_USER: admin
-            KEYCLOAK_PASSWORD: admin
-            KEYCLOAK_IMPORT: /tmp/realm-export.json
-            KEYCLOAK_LOGLEVEL: DEBUG
-            ROOT_LOGLEVEL: DEBUG
+    #keycloak:
+    #    image: jboss/keycloak:3.4.3.Final
+    #    expose:
+    #    - "8443"
+    #    network_mode: "host"
+    #    volumes:
+    #    - ./config/tls.key:/etc/x509/https/tls/key:ro,Z
+    #    - ./config/tls.crt:/etc/x509/https/tls.crt:ro,Z
+    #    - ./config/realm-export.json:/tmp/realm-export.json:ro,Z
+    #    environment:
+    #        KEYCLOAK_USER: admin
+    #        KEYCLOAK_PASSWORD: admin
+    #        KEYCLOAK_IMPORT: /tmp/realm-export.json
+    #        KEYCLOAK_LOGLEVEL: DEBUG
+    #        ROOT_LOGLEVEL: DEBUG
 
     example:
         image: informaticsmatters/example-servlet:latest
         network_mode: "host"
         volumes:
-        - ./config/server.xml:/usr/local/tomcat/conf/server.xml:ro,Z
+        #- ./config/server.xml:/usr/local/tomcat/conf/server.xml:ro,Z
         - ./config/logging.properties:/usr/local/tomcat/conf/logging.properties:ro,Z
         - ./config/keycloak.json:/usr/local/tomcat/webapps/example-servlet/WEB-INF/keycloak.json:ro,Z
         - ./config/context.xml:/usr/local/tomcat/webapps/example-servlet/META-INF/context.xml:ro,Z
@@ -33,6 +33,6 @@ services:
             KEYCLOAK_PUBLIC_KEY:
             KEYCLOAK_SECRET:
             CATALINA_OPTS: "-Dkeycloak.baseurl=$KEYCLOAK_SERVER_URL -Dkeycloak.publickey=$KEYCLOAK_PUBLIC_KEY -Dkeycloak.secret=$KEYCLOAK_SECRET"
-        expose:
-        - "9080"
-        - "9443"
+        #expose:
+        #- "9080"
+        #- "9443"

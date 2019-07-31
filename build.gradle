@@ -33,8 +33,13 @@ wrapper {
 task buildDockerFile(type: Dockerfile) {
 
     destFile = project.file('build/Dockerfile')
-    from "informaticsmatters/tomcat-keycloak:8.5-jre8-2.1.0"
+    from "informaticsmatters/tomcat-keycloak:8.0-jre8-3.4.3"
     label(['maintainer': 'Tim Dudgeon "tdudgeon@informaticsmatters.com"'])
+
+
+    user('0')
+    runCommand("apt-get install -y unzip")
+    user('501')
 
     def warFile = tasks.war.outputs.files.singleFile
     addFile('libs/' + warFile.name, "/usr/local/tomcat/webapps/${contextName}.war")
