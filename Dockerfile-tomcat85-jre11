@@ -7,7 +7,7 @@ RUN apt-get update -y &&\
  apt-get clean
 
 ENV TOMCAT_MAJOR 8
-ENV TOMCAT_VERSION 8.5.43
+ENV TOMCAT_VERSION 8.5.57
 ENV ARCHIVE apache-tomcat-$TOMCAT_VERSION.tar.gz
 ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64
 
@@ -15,7 +15,7 @@ RUN useradd -u 501 -U -G 0 -m tomcat
 
 WORKDIR /usr/local
 
-RUN curl -s -o tomcat.tar.gz https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/$ARCHIVE &&\
+RUN curl -s -o tomcat.tar.gz -L https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/$ARCHIVE &&\
  tar xfz tomcat.tar.gz &&\
  rm tomcat.tar.gz &&\
  mv apache-tomcat-$TOMCAT_VERSION tomcat &&\

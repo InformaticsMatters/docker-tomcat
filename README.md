@@ -28,6 +28,8 @@ The trick to running as an arbitrarily assigned user ID is that this user belong
 Jan 2019: The build was switched to use Tomcat 8.5 as 8.0 is no longer supported and downloads are no longer available.
 The older informaticsmatters/tomcat:8.0-jre8 images are still present on Docker Hub.
 
+Java8 is not longer available from the Debian 'Buster' repositories so only Java11 versions can now be built.
+
 ## Alternative Docker files
 
 The core Dockerfile have names like Dockerfile-tomcat80-jre8. 
