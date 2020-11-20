@@ -1,0 +1,24 @@
+# When using images based on this Dockerfile be aware of the possibility of libraries in your war file's WEB-INF/lib
+# dir that clash with those used by keycloak that are put into the $CATALINA_HOME/lib directory.
+# This can cause conflicts as both versions of the jars will be on the CLASSPATH.
+# The solution is usually to remove the jar from your WEB-INF/lib dir and rely on the one from $CATALINA_HOME/lib.
+
+FROM informaticsmatters/tomcat:8.5-jre11
+LABEL maintainer="tdudgeon@informaticsmatters.com"
+
+USER 0
+WORKDIR $CATALINA_HOME
+
+# We use the version 10.0.2 but this can be overridden with a build arg.
+# Note that the syntax of the URL is not totally consistent between versions.
+ARG KEYCLOAK_URL=https://downloads.jboss.org/keycloak/10.0.2/adapters/keycloak-oidc/keycloak-tomcat-adapter-dist-10.0.2.tar.gz
+
+RUN mkdir keycloak && cd keycloak && curl -s -o keycloak.tar.gz\
+ ${KEYCLOAK_URL} &&\
+ tar xfz keycloak.tar.gz &&\
+ rm keycloak.tar.gz &&\
+ mv *.jar $CATALINA_HOME/lib &&\
+ cd $CATALINA_HOME && rm -rf keycloak
+
+USER 501
+

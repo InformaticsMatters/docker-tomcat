@@ -7,7 +7,7 @@ RUN apt-get update -y &&\
  apt-get clean
 
 ENV TOMCAT_MAJOR 8
-ENV TOMCAT_VERSION 8.5.57
+ENV TOMCAT_VERSION 8.5.60
 ENV ARCHIVE apache-tomcat-$TOMCAT_VERSION.tar.gz
 ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64
 
