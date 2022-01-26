@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:bullseye
 LABEL maintainer="tdudgeon@informaticsmatters.com"
 
 RUN apt-get --allow-releaseinfo-change update &&\
